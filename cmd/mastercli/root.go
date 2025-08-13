@@ -1,15 +1,16 @@
 package mastercli
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"example.com/mastercli/internal/config"
-	"example.com/mastercli/internal/logger"
 	"github.com/spf13/cobra"
+	"mastercli-starter/internal/config"
+	"mastercli-starter/internal/logger"
 )
 
 var (
@@ -26,7 +27,7 @@ func init() {
 }
 
 func Execute() {
-	// Load config before running commands
+	// 加载配置
 	cfg, err := config.Load(cfgPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "config error: %v\n", err)
@@ -35,11 +36,11 @@ func Execute() {
 	log := logger.Init(cfg.App.LogLevel)
 	log.Info().Str("app", cfg.App.Name).Msg("starting")
 
-	// Graceful shutdown wiring for any subcommand that cares
-	ctx, stop := signal.NotifyContext(os.Background(), syscall.SIGINT, syscall.SIGTERM)
+	//  创建一个cancelable context
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	// Inject context via command context
+	// 设置context到rootCmd
 	rootCmd.SetContext(ctx)
 
 	// Register subcommands

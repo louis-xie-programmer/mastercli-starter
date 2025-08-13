@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"example.com/mastercli/internal/job"
-	"example.com/mastercli/internal/worker"
-	"example.com/mastercli/internal/logger"
+	"mastercli-starter/internal/job"
+	"mastercli-starter/internal/logger"
+	"mastercli-starter/internal/worker"
 )
 
 type Manager struct {

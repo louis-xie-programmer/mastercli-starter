@@ -1,6 +1,6 @@
-module example.com/mastercli
+module mastercli-starter
 
-go 1.22
+go 1.24.5
 
 require (
 	github.com/spf13/cobra v1.8.1

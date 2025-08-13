@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"example.com/mastercli/internal/job"
 	"github.com/spf13/cobra"
+	"mastercli-starter/internal/job"
 )
 
 func runCmd() *cobra.Command {

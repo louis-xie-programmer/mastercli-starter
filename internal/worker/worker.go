@@ -3,7 +3,7 @@ package worker
 import (
 	"context"
 
-	"example.com/mastercli/internal/job"
+	"mastercli-starter/internal/job"
 )
 
 type Result struct {

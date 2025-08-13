@@ -3,13 +3,14 @@ package mastercli
 import (
 	"bufio"
 	"fmt"
+	"mastercli-starter/internal/config"
 	"os"
 	"time"
 
-	"example.com/mastercli/internal/logger"
-	"example.com/mastercli/internal/master"
-	"example.com/mastercli/internal/job"
 	"github.com/spf13/cobra"
+	"mastercli-starter/internal/job"
+	"mastercli-starter/internal/logger"
+	"mastercli-starter/internal/master"
 )
 
 type startOptions struct {
@@ -17,7 +18,7 @@ type startOptions struct {
 	jobs     int
 }
 
-func startCmd(appCfg *struct{ App struct{ Name string `yaml:"name"`; LogLevel string `yaml:"log_level"` `yaml:"log_level"`}; Master struct{ Workers int `yaml:"workers"`; QueueSize int `yaml:"queue_size"`; MaxRetries int `yaml:"max_retries"`; BackoffMS int `yaml:"backoff_ms"` } `yaml:"master"` }) *cobra.Command {
+func startCmd(appCfg *config.AppConfig) *cobra.Command {
 	opts := &startOptions{}
 	cmd := &cobra.Command{
 		Use:   "start",
@@ -44,7 +45,7 @@ func startCmd(appCfg *struct{ App struct{ Name string `yaml:"name"`; LogLevel st
 					for scanner.Scan() {
 						i++
 						payload := scanner.Text()
-						j := &job.SimpleJob{JobID: fmt.Sprintf("file-%03d", i), Payload: payload, Duration: 200*time.Millisecond}
+						j := &job.SimpleJob{JobID: fmt.Sprintf("file-%03d", i), Payload: payload, Duration: 200 * time.Millisecond}
 						if err := mgr.Submit(j); err != nil {
 							log.Warn().Err(err).Msg("submit")
 						}
@@ -52,7 +53,9 @@ func startCmd(appCfg *struct{ App struct{ Name string `yaml:"name"`; LogLevel st
 					return
 				}
 				for _, j := range master.GenerateDemoJobs(opts.jobs) {
-					if err := mgr.Submit(j); err != nil { log.Warn().Err(err).Msg("submit") }
+					if err := mgr.Submit(j); err != nil {
+						log.Warn().Err(err).Msg("submit")
+					}
 				}
 			}()
 
