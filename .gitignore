@@ -1,0 +1,11 @@
+# Binaries
+/mastercli
+*.exe
+*.out
+
+# IDE
+.vscode/
+.idea/
+
+# Configs
+*.local.yaml

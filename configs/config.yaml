@@ -1,0 +1,8 @@
+app:
+  name: mastercli
+  log_level: info   # debug, info, warn, error
+master:
+  workers: 4
+  queue_size: 64
+  max_retries: 2
+  backoff_ms: 250
