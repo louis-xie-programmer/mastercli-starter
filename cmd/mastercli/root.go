@@ -27,7 +27,7 @@ func init() {
 }
 
 func Execute() {
-	// ¼ÓÔØÅäÖÃ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	cfg, err := config.Load(cfgPath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "config error: %v\n", err)
@@ -36,11 +36,11 @@ func Execute() {
 	log := logger.Init(cfg.App.LogLevel)
 	log.Info().Str("app", cfg.App.Name).Msg("starting")
 
-	//  ´´½¨Ò»¸öcancelable context
+	//  ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½cancelable context
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	// ÉèÖÃcontextµ½rootCmd
+	// ï¿½ï¿½ï¿½ï¿½contextï¿½ï¿½rootCmd
 	rootCmd.SetContext(ctx)
 
 	// Register subcommands
